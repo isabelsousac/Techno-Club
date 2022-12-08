@@ -17,12 +17,12 @@
         >
       </div>
       <div class="form-group">
-        <label for="exampleInputPassword1">Password</label>
+        <label for="exampleInputPassword1">Name</label>
         <input
-          type="password"
+          type="text"
           class="form-control"
           id="exampleInputPassword1"
-          placeholder="Password"
+          placeholder="Name"
         />
       </div>
       <div class="form-check">
