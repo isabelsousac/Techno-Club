@@ -8,7 +8,7 @@
 
     <h3>PERSONAL DETAILS</h3>
 
-    <form ref="form" method="POST" @submit="submit">
+    <form ref="form" method="POST" @submit.prevent="submit">
       <div class="form-group">
         <label for="exampleInputPassword1">FIRST NAME</label>
         <input
@@ -116,8 +116,11 @@
 </template>
 
 <script>
-import db from "@/firebase";
+import { db } from "@/firebase";
 import { collection, addDoc } from "firebase/firestore";
+
+
+
 export default {
   data: function () {
     return {
@@ -127,22 +130,20 @@ export default {
     };
   },
   methods: {
-    submit: function (e) {
-      e.preventDefault();
-      const project = {
+    async submit() {
+      const user = {
         firstName: this.firstName,
         lastName: this.lastName,
         email: this.email,
       };
-      // const newUserRef = doc(collection(db, "user"));
-      addDoc(collection(db, "user"), project).then(() => {
-        console.log("added to db");
-      });
-      // db.collection("user")
-      //   .add(project)
-      //   .then(() => {
-      //     console.log("added to db");
-      //   });
+
+      console.log(user);
+      
+      try {
+        await addDoc(collection(db, "User"), { user });
+      } catch (err) {
+        console.log(err);
+      }
     },
   },
 };
