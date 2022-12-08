@@ -9,6 +9,7 @@
     <h3>PERSONAL DETAILS</h3>
 
     <form ref="form" method="POST" @submit.prevent="submit">
+      
       <div class="form-group">
         <label for="exampleInputPassword1">FIRST NAME</label>
         <input
@@ -16,7 +17,6 @@
           class="form-control"
           id="first-name"
           v-model="firstName"
-          required
         />
       </div>
       <div class="form-group">
@@ -109,7 +109,7 @@
 
       <div class="subscribe">
         <button type="submit" class="btn btn-primary">SUBSCRIBE</button>
-        <p>Our privacy policy</p>
+        <router-link to="/policy" class="item"><p>Our privacy policy</p></router-link>
       </div>
     </form>
   </div>
@@ -127,64 +127,69 @@ export default {
       firstName: "",
       lastName: "",
       email: "",
+      errors: false
     };
   },
   methods: {
     async submit() {
-      const user = {
-        firstName: this.firstName,
-        lastName: this.lastName,
-        email: this.email,
-      };
-
-      console.log(user);
-      
-      try {
-        await addDoc(collection(db, "User"), { user });
-      } catch (err) {
-        console.log(err);
-      }
+        const user = {
+          firstName: this.firstName,
+          lastName: this.lastName,
+          email: this.email,
+        };
+  
+        console.log(user);
+        
+        try {
+          await addDoc(collection(db, "User"), { user });
+          this.$router.push('/');
+        } catch (err) {
+          console.log(err);
+        }
     },
   },
 };
 </script>
 
 <style scoped>
-h1,
-h3 {
-  font-family: "Iceberg", cursive;
-}
+  h1, h3 {
+    font-family: "Iceberg", cursive;
+  }
 
-.form-control {
-  background: rgba(247, 247, 247, 0.3);
-  height: 50px;
-}
+  .form-control {
+    background: rgba(247, 247, 247, 0.3);
+    height: 50px;
+  }
 
-.ui.segment {
-  background: #1e1e1e;
-}
+  .ui.segment {
+    background: #1e1e1e;
+  }
 
-.ui.toggle.checkbox label {
-  color: white;
-}
+  .ui.toggle.checkbox label {
+    color: white;
+  }
 
-p {
-  font-size: 13px;
-}
+  p {
+    font-size: 13px;
+  }
 
-p[data-v-6f83b81c] {
-  font-size: 16px;
-}
+  p[data-v-6f83b81c] {
+    font-size: 16px;
+  }
 
-.subscribe {
-  text-align: center;
-  padding-bottom: 15px;
-}
+  .subscribe {
+    text-align: center;
+    padding-bottom: 15px;
+  }
 
-.subscribe button {
-  width: 208px;
-  height: 52px;
-  background: #f6f6f6;
-  color: black;
-}
+  .subscribe button {
+    width: 208px;
+    height: 52px;
+    background: #f6f6f6;
+    color: black;
+  }
+
+  .item {
+    text-decoration: none;
+  }
 </style>
