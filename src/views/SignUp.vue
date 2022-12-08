@@ -8,8 +8,13 @@
 
     <h3>PERSONAL DETAILS</h3>
 
+<<<<<<< Updated upstream
     <form ref="form" method="POST" @submit.prevent="submit">
       
+=======
+    <form  @submit.prevent="onSubmit">
+      <p v-if="errorsPresent" class="error">Please fill out both fields</p>
+>>>>>>> Stashed changes
       <div class="form-group">
         <label for="exampleInputPassword1">FIRST NAME</label>
         <input
@@ -116,8 +121,30 @@
 </template>
 
 <script>
+<<<<<<< Updated upstream
 import { db } from "@/firebase";
 import { collection, addDoc } from "firebase/firestore";
+=======
+  import axios from 'axios'
+
+  export default {
+    name: 'SignUp',
+    props: {
+      firstName: {
+          default() {
+              return ''
+          }
+      }
+    },
+    data() {
+        return {
+            errorsPresent: false
+        }
+    }
+  }
+
+  // import jQuery from 'jQuery'
+>>>>>>> Stashed changes
 
 
 
