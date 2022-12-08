@@ -1,17 +1,22 @@
 <template>
-  <div class="ui raised very padded text container ">
+  <div class="ui raised very padded text container">
     <h1>Newsletter</h1>
-    <p>Be one of the first club rats to have access to the hardest music events and hardest drugs in the scene.</p>
+    <p>
+      Be one of the first club rats to have access to the hardest music events
+      and hardest drugs in the scene.
+    </p>
 
     <h3>PERSONAL DETAILS</h3>
 
-    <form>
+    <form ref="form" method="POST" @submit="submit">
       <div class="form-group">
         <label for="exampleInputPassword1">FIRST NAME</label>
         <input
           type="text"
           class="form-control"
           id="first-name"
+          v-model="firstName"
+          required
         />
       </div>
       <div class="form-group">
@@ -20,6 +25,7 @@
           type="text"
           class="form-control"
           id="last-name"
+          v-model="lastName"
         />
       </div>
       <div class="form-group">
@@ -29,15 +35,13 @@
           class="form-control"
           id="exampleInputEmail1"
           aria-describedby="emailHelp"
+          v-model="email"
+          :rules="emailRules"
         />
       </div>
       <div class="form-group">
         <label for="exampleInputPassword1">PHONE NUMBER</label>
-        <input
-          type="text"
-          class="form-control"
-          id="exampleInputPassword1"
-        />
+        <input type="text" class="form-control" id="exampleInputPassword1" />
       </div>
 
       <h3>KEEP INFORMED</h3>
@@ -45,7 +49,7 @@
       <div class="ui segment">
         <div class="field">
           <div class="ui toggle checkbox">
-            <input type="checkbox" name="events" tabindex="0" class="hidden">
+            <input type="checkbox" name="events" tabindex="0" class="hidden" />
             <label>EVENTS</label>
           </div>
         </div>
@@ -54,7 +58,7 @@
       <div class="ui segment">
         <div class="field">
           <div class="ui toggle checkbox">
-            <input type="checkbox" name="news" tabindex="0" class="hidden">
+            <input type="checkbox" name="news" tabindex="0" class="hidden" />
             <label>NEWS</label>
           </div>
         </div>
@@ -63,7 +67,12 @@
       <div class="ui segment">
         <div class="field">
           <div class="ui toggle checkbox">
-            <input type="checkbox" name="discounts" tabindex="0" class="hidden">
+            <input
+              type="checkbox"
+              name="discounts"
+              tabindex="0"
+              class="hidden"
+            />
             <label>DISCOUNTS</label>
           </div>
         </div>
@@ -72,7 +81,7 @@
       <div class="ui segment">
         <div class="field">
           <div class="ui toggle checkbox">
-            <input type="checkbox" name="covid" tabindex="0" class="hidden">
+            <input type="checkbox" name="covid" tabindex="0" class="hidden" />
             <label>COVID-19</label>
           </div>
         </div>
@@ -83,7 +92,7 @@
       <div class="ui segment">
         <div class="field">
           <div class="ui toggle checkbox">
-            <input type="checkbox" name="sms" tabindex="0" class="hidden">
+            <input type="checkbox" name="sms" tabindex="0" class="hidden" />
             <label>VIA SMS</label>
           </div>
         </div>
@@ -92,7 +101,7 @@
       <div class="ui segment">
         <div class="field">
           <div class="ui toggle checkbox">
-            <input type="checkbox" name="email" tabindex="0" class="hidden">
+            <input type="checkbox" name="email" tabindex="0" class="hidden" />
             <label>VIA EMAIL</label>
           </div>
         </div>
@@ -107,49 +116,74 @@
 </template>
 
 <script>
-  // import jQuery from 'jQuery'
-
-  // const $ = jQuery;
-
-  // $('.ui.checkbox').checkbox();
+import db from "@/firebase";
+import { collection, addDoc } from "firebase/firestore";
+export default {
+  data: function () {
+    return {
+      firstName: "",
+      lastName: "",
+      email: "",
+    };
+  },
+  methods: {
+    submit: function (e) {
+      e.preventDefault();
+      const project = {
+        firstName: this.firstName,
+        lastName: this.lastName,
+        email: this.email,
+      };
+      // const newUserRef = doc(collection(db, "user"));
+      addDoc(collection(db, "user"), project).then(() => {
+        console.log("added to db");
+      });
+      // db.collection("user")
+      //   .add(project)
+      //   .then(() => {
+      //     console.log("added to db");
+      //   });
+    },
+  },
+};
 </script>
 
 <style scoped>
-  h1, h3 {
-    font-family: "Iceberg", cursive;
-  }
-
-  .form-control {
-    background: rgba(247, 247, 247, 0.3);
-    height: 50px;
-  }
-
-  .ui.segment {
-    background: #1e1e1e;
-  }
-
-  .ui.toggle.checkbox label {
-    color: white;
-  }
-
-  p{
-    font-size: 13px;
-  }
-
-  p[data-v-6f83b81c] {
-    font-size: 16px;
+h1,
+h3 {
+  font-family: "Iceberg", cursive;
 }
 
-  .subscribe {
-    text-align: center;
-    padding-bottom: 15px;
-  }
+.form-control {
+  background: rgba(247, 247, 247, 0.3);
+  height: 50px;
+}
 
-  .subscribe button {
-    width: 208px;
-    height: 52px;
-    background: #F6F6F6;
-    color: black;
-  }
+.ui.segment {
+  background: #1e1e1e;
+}
 
+.ui.toggle.checkbox label {
+  color: white;
+}
+
+p {
+  font-size: 13px;
+}
+
+p[data-v-6f83b81c] {
+  font-size: 16px;
+}
+
+.subscribe {
+  text-align: center;
+  padding-bottom: 15px;
+}
+
+.subscribe button {
+  width: 208px;
+  height: 52px;
+  background: #f6f6f6;
+  color: black;
+}
 </style>
