@@ -13,6 +13,8 @@
       <form @submit.prevent="submit">
         <p v-if="errorsPresent" class="error">Please fill out both fields</p>
         <div class="form-group">
+          <p v-if="userTaken" class="error">Email is already taken.</p>
+
           <label for="exampleInputPassword1">FIRST NAME</label>
           <input
             type="text"
@@ -133,7 +135,7 @@
 
 <script>
 import { db } from "@/firebase";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, where, query, getDocs } from "firebase/firestore";
 
 export default {
   data: function () {
@@ -143,23 +145,38 @@ export default {
       email: "",
       sms: false,
       errors: false,
+      emailTaken: false,
     };
   },
   methods: {
     async submit() {
-      const user = {
-        firstName: this.firstName,
-        lastName: this.lastName,
-        email: this.email,
-      };
+      const q = query(
+        collection(db, "User"),
+        where("user.email", "==", this.email)
+      );
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        this.emailTaken = true;
+        console.log(doc.id, " => ", doc.data());
+      });
 
-      console.log(user);
+      if (this.emailTaken) {
+        console.log("user already exists");
+      } else {
+        const user = {
+          firstName: this.firstName,
+          lastName: this.lastName,
+          email: this.email,
+        };
 
-      try {
-        await addDoc(collection(db, "User"), { user });
-        this.$router.push("/");
-      } catch (err) {
-        console.log(err);
+        console.log(user);
+
+        try {
+          await addDoc(collection(db, "User"), { user });
+          this.$router.push("/");
+        } catch (err) {
+          console.log(err);
+        }
       }
     },
   },
