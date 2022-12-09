@@ -8,8 +8,8 @@
 
     <h3>PERSONAL DETAILS</h3>
 
-    <form ref="form" method="POST" @submit.prevent="submit">
-      
+    <form @submit.prevent="submit">
+      <p v-if="errorsPresent" class="error">Please fill out both fields</p>
       <div class="form-group">
         <p v-if="userTaken" class="error">Email is already taken.</p>
 
@@ -94,7 +94,13 @@
       <div class="ui segment">
         <div class="field">
           <div class="ui toggle checkbox">
-            <input type="checkbox" name="sms" tabindex="0" class="hidden" />
+            <input
+              type="checkbox"
+              name="sms"
+              tabindex="0"
+              class="hidden"
+              v-model="sms"
+            />
             <label>VIA SMS</label>
           </div>
         </div>
@@ -111,7 +117,9 @@
 
       <div class="subscribe">
         <button type="submit" class="btn btn-primary">SUBSCRIBE</button>
-        <router-link to="/policy" class="item"><p>Our privacy policy</p></router-link>
+        <router-link to="/policy" class="item"
+          ><p>Our privacy policy</p></router-link
+        >
       </div>
     </form>
   </div>
@@ -127,7 +135,8 @@ export default {
       firstName: "",
       lastName: "",
       email: "",
-      errors: false, 
+      sms: false,
+      errors: false,
       emailTaken: false
     };
   },
@@ -165,44 +174,45 @@ export default {
 </script>
 
 <style scoped>
-  h1, h3 {
-    font-family: "Iceberg", cursive;
-  }
+h1,
+h3 {
+  font-family: "Iceberg", cursive;
+}
 
-  .form-control {
-    background: rgba(247, 247, 247, 0.3);
-    height: 50px;
-  }
+.form-control {
+  background: rgba(247, 247, 247, 0.3);
+  height: 50px;
+}
 
-  .ui.segment {
-    background: #1e1e1e;
-  }
+.ui.segment {
+  background: #1e1e1e;
+}
 
-  .ui.toggle.checkbox label {
-    color: white;
-  }
+.ui.toggle.checkbox label {
+  color: white;
+}
 
-  p {
-    font-size: 13px;
-  }
+p {
+  font-size: 13px;
+}
 
-  p[data-v-6f83b81c] {
-    font-size: 16px;
-  }
+p[data-v-6f83b81c] {
+  font-size: 16px;
+}
 
-  .subscribe {
-    text-align: center;
-    padding-bottom: 15px;
-  }
+.subscribe {
+  text-align: center;
+  padding-bottom: 15px;
+}
 
-  .subscribe button {
-    width: 208px;
-    height: 52px;
-    background: #f6f6f6;
-    color: black;
-  }
+.subscribe button {
+  width: 208px;
+  height: 52px;
+  background: #f6f6f6;
+  color: black;
+}
 
-  .item {
-    text-decoration: none;
-  }
+.item {
+  text-decoration: none;
+}
 </style>
