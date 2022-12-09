@@ -12,7 +12,6 @@
     </div>
     <div id="image"></div>
     <div class="ui text container">
-      <FlashMessage :position="'right top'" />
       <div class="ui one column grid">
         <div class="column">
           <router-view />
@@ -57,6 +56,7 @@ div.ui.inverted.segment {
   background: black;
   padding: 0 auto;
   height: 8vh;
+  z-index: 0;
 }
 
 div.ui.secondary.pointing.menu.item a {
