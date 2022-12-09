@@ -50,77 +50,68 @@
 
         <h3>KEEP INFORMED</h3>
 
-        <div class="ui segment">
-          <div class="field">
-            <div class="ui toggle checkbox">
-              <input
-                type="checkbox"
-                name="events"
-                tabindex="0"
-                class="hidden"
-              />
-              <label>EVENTS</label>
-            </div>
+      <div class="ui segment">
+        <div class="field">
+          <div class="ui toggle checkbox">
+            <input  @click="toggle" type="checkbox" name="events" tabindex="0" />
+            <label>EVENTS</label>
           </div>
         </div>
 
-        <div class="ui segment">
-          <div class="field">
-            <div class="ui toggle checkbox">
-              <input type="checkbox" name="news" tabindex="0" class="hidden" />
-              <label>NEWS</label>
-            </div>
+      <div class="ui segment">
+        <div class="field">
+          <div class="ui toggle checkbox">
+            <input  @click="toggle" type="checkbox" name="news" tabindex="0" />
+            <label>NEWS</label>
           </div>
         </div>
 
-        <div class="ui segment">
-          <div class="field">
-            <div class="ui toggle checkbox">
-              <input
-                type="checkbox"
-                name="discounts"
-                tabindex="0"
-                class="hidden"
-              />
-              <label>DISCOUNTS</label>
-            </div>
+      <div class="ui segment">
+        <div class="field">
+          <div class="ui toggle checkbox">
+            <input
+              @click="toggle"
+              type="checkbox"
+              name="discounts"
+              tabindex="0"
+            />
+            <label>DISCOUNTS</label>
           </div>
         </div>
 
-        <div class="ui segment">
-          <div class="field">
-            <div class="ui toggle checkbox">
-              <input type="checkbox" name="covid" tabindex="0" class="hidden" />
-              <label>COVID-19</label>
-            </div>
+      <div class="ui segment">
+        <div class="field">
+          <div class="ui toggle checkbox">
+            <input type="checkbox" name="covid" tabindex="0"/>
+            <label>COVID-19</label>
           </div>
         </div>
 
         <h3>HOW WE'LL REACH YOU</h3>
 
-        <div class="ui segment">
-          <div class="field">
-            <div class="ui toggle checkbox">
-              <input
-                type="checkbox"
-                name="sms"
-                tabindex="0"
-                class="hidden"
-                v-model="sms"
-              />
-              <label>VIA SMS</label>
-            </div>
+      <div class="ui segment">
+        <div class="field">
+          <div class="ui toggle checkbox">
+            <input
+              @click="toggle"
+              type="checkbox"
+              name="sms"
+              tabindex="0"
+              v-model="sms"
+            />
+            <label>VIA SMS</label>
           </div>
         </div>
 
-        <div class="ui segment">
-          <div class="field">
-            <div class="ui toggle checkbox">
-              <input type="checkbox" name="email" tabindex="0" class="hidden" />
-              <label>VIA EMAIL</label>
-            </div>
+      <div class="ui segment">
+        <div class="field">
+          <div class="ui toggle checkbox">
+            <input @click="toggle" type="checkbox" name="email" tabindex="0"/>
+            <label>VIA EMAIL</label>
           </div>
         </div>
+      </div>
+      
 
         <div class="subscribe">
           <button type="submit" class="btn btn-primary">SUBSCRIBE</button>
@@ -146,6 +137,7 @@ export default {
       sms: false,
       errors: false,
       emailTaken: false,
+      isActive: false
     };
   },
   methods: {
@@ -183,7 +175,10 @@ export default {
         } catch (err) {
           console.log(err);
         }
-      }
+      } 
+    },
+    toggle() {
+      this.isActive = this.isActive ? false : true;
     },
   },
 };
@@ -204,6 +199,7 @@ h3 {
 .ui.segment {
   background: #1e1e1e;
 }
+
 
 .ui.toggle.checkbox label {
   color: white;
