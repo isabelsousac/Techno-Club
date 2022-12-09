@@ -49,6 +49,7 @@
         </div>
 
         <h3>KEEP INFORMED</h3>
+
         <div class="ui segment">
           <div class="field">
             <div class="ui toggle checkbox">
@@ -111,6 +112,7 @@
             </div>
           </div>
         </div>
+
         <div class="ui segment">
           <div class="field">
             <div class="ui toggle checkbox">
@@ -148,7 +150,6 @@ export default {
       email: "",
       sms: false,
       errors: false,
-      emailTaken: false,
       isActive: false,
     };
   },
@@ -158,20 +159,33 @@ export default {
         collection(db, "User"),
         where("user.email", "==", this.email)
       );
-      const querySnapshot = await getDocs(q);
-      querySnapshot.forEach((doc) => {
-        this.emailTaken = true;
 
+      const querySnapshot = await getDocs(q);
+      let emailTaken = false;
+      querySnapshot.forEach((doc) => {
+        emailTaken = true;
         console.log(doc.id, " => ", doc.data());
       });
 
-      if (this.emailTaken) {
+      if (emailTaken) {
         this.flashMessage.show({
           status: "error",
           title: "Email already taken.",
           message: "Try again.",
         });
         console.log("user already exists");
+      } else if (this.firstName.length < 2) {
+        this.flashMessage.show({
+          status: "error",
+          title: "First name too short.",
+          message: "Try again.",
+        });
+      } else if (this.lastName.length < 2) {
+        this.flashMessage.show({
+          status: "error",
+          title: "Last name too short.",
+          message: "Try again.",
+        });
       } else {
         const user = {
           firstName: this.firstName,
