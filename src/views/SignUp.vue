@@ -57,6 +57,7 @@
             <label>EVENTS</label>
           </div>
         </div>
+        </div>
 
       <div class="ui segment">
         <div class="field">
@@ -64,6 +65,7 @@
             <input  @click="toggle" type="checkbox" name="news" tabindex="0" />
             <label>NEWS</label>
           </div>
+        </div>
         </div>
 
       <div class="ui segment">
@@ -78,6 +80,7 @@
             <label>DISCOUNTS</label>
           </div>
         </div>
+        </div>
 
       <div class="ui segment">
         <div class="field">
@@ -85,6 +88,7 @@
             <input type="checkbox" name="covid" tabindex="0"/>
             <label>COVID-19</label>
           </div>
+        </div>
         </div>
 
         <h3>HOW WE'LL REACH YOU</h3>
@@ -101,6 +105,7 @@
             />
             <label>VIA SMS</label>
           </div>
+        </div>
         </div>
 
       <div class="ui segment">
@@ -136,7 +141,6 @@ export default {
       email: "",
       sms: false,
       errors: false,
-      emailTaken: false,
       isActive: false
     };
   },
@@ -146,13 +150,15 @@ export default {
         collection(db, "User"),
         where("user.email", "==", this.email)
       );
+
       const querySnapshot = await getDocs(q);
+      let emailTaken = false;
       querySnapshot.forEach((doc) => {
-        this.emailTaken = true;
+        emailTaken = true;
         console.log(doc.id, " => ", doc.data());
       });
 
-      if (this.emailTaken) {
+      if (emailTaken || this.firstName.length < 2 || this.lastName.length < 2) {
         console.log("user already exists");
       } else {
         const user = {
