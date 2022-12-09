@@ -8,14 +8,11 @@
 
     <h3>PERSONAL DETAILS</h3>
 
-<<<<<<< Updated upstream
     <form ref="form" method="POST" @submit.prevent="submit">
       
-=======
-    <form  @submit.prevent="onSubmit">
-      <p v-if="errorsPresent" class="error">Please fill out both fields</p>
->>>>>>> Stashed changes
       <div class="form-group">
+        <p v-if="userTaken" class="error">Email is already taken.</p>
+
         <label for="exampleInputPassword1">FIRST NAME</label>
         <input
           type="text"
@@ -34,7 +31,7 @@
         />
       </div>
       <div class="form-group">
-        <label for="exampleInputEmail1">EMAIL ADRESS</label>
+        <label for="exampleInputEmail1">EMAIL ADDRESS</label>
         <input
           type="email"
           class="form-control"
@@ -121,32 +118,8 @@
 </template>
 
 <script>
-<<<<<<< Updated upstream
 import { db } from "@/firebase";
-import { collection, addDoc } from "firebase/firestore";
-=======
-  import axios from 'axios'
-
-  export default {
-    name: 'SignUp',
-    props: {
-      firstName: {
-          default() {
-              return ''
-          }
-      }
-    },
-    data() {
-        return {
-            errorsPresent: false
-        }
-    }
-  }
-
-  // import jQuery from 'jQuery'
->>>>>>> Stashed changes
-
-
+import { collection, addDoc, where, query, getDocs} from "firebase/firestore";
 
 export default {
   data: function () {
@@ -154,11 +127,22 @@ export default {
       firstName: "",
       lastName: "",
       email: "",
-      errors: false
+      errors: false, 
+      emailTaken: false
     };
   },
   methods: {
     async submit() {
+      const q = query(collection(db, "User"), where("user.email", "==", this.email));
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        this.emailTaken = true;
+        console.log(doc.id, " => ", doc.data());
+      });
+
+      if(this.emailTaken) {
+          console.log("user already exists")
+      } else {
         const user = {
           firstName: this.firstName,
           lastName: this.lastName,
@@ -173,6 +157,8 @@ export default {
         } catch (err) {
           console.log(err);
         }
+      }
+        
     },
   },
 };
