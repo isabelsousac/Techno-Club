@@ -1,9 +1,10 @@
 import Vue from "vue";
 import App from "./App.vue";
 import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
+import FlashMessage from "@smartweb/vue-flash-message";
+Vue.use(FlashMessage);
 import router from "./router";
 import "semantic-ui-css/semantic.css";
-
 
 Vue.config.productionTip = false;
 

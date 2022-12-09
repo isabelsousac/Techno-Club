@@ -7,7 +7,7 @@
         Be one of the first club rats to have access to the hardest music events
         and hardest drugs in the scene.
       </p>
-
+      <FlashMessage :position="'right top'" />
       <h3>PERSONAL DETAILS</h3>
 
       <form @submit.prevent="submit">
@@ -49,69 +49,81 @@
         </div>
 
         <h3>KEEP INFORMED</h3>
-
-      <div class="ui segment">
-        <div class="field">
-          <div class="ui toggle checkbox">
-            <input  @click="toggle" type="checkbox" name="events" tabindex="0" />
-            <label>EVENTS</label>
+        <div class="ui segment">
+          <div class="field">
+            <div class="ui toggle checkbox">
+              <input
+                @click="toggle"
+                type="checkbox"
+                name="events"
+                tabindex="0"
+              />
+              <label>EVENTS</label>
+            </div>
           </div>
         </div>
 
-      <div class="ui segment">
-        <div class="field">
-          <div class="ui toggle checkbox">
-            <input  @click="toggle" type="checkbox" name="news" tabindex="0" />
-            <label>NEWS</label>
+        <div class="ui segment">
+          <div class="field">
+            <div class="ui toggle checkbox">
+              <input @click="toggle" type="checkbox" name="news" tabindex="0" />
+              <label>NEWS</label>
+            </div>
           </div>
         </div>
 
-      <div class="ui segment">
-        <div class="field">
-          <div class="ui toggle checkbox">
-            <input
-              @click="toggle"
-              type="checkbox"
-              name="discounts"
-              tabindex="0"
-            />
-            <label>DISCOUNTS</label>
+        <div class="ui segment">
+          <div class="field">
+            <div class="ui toggle checkbox">
+              <input
+                @click="toggle"
+                type="checkbox"
+                name="discounts"
+                tabindex="0"
+              />
+              <label>DISCOUNTS</label>
+            </div>
           </div>
         </div>
 
-      <div class="ui segment">
-        <div class="field">
-          <div class="ui toggle checkbox">
-            <input type="checkbox" name="covid" tabindex="0"/>
-            <label>COVID-19</label>
+        <div class="ui segment">
+          <div class="field">
+            <div class="ui toggle checkbox">
+              <input type="checkbox" name="covid" tabindex="0" />
+              <label>COVID-19</label>
+            </div>
           </div>
         </div>
 
         <h3>HOW WE'LL REACH YOU</h3>
 
-      <div class="ui segment">
-        <div class="field">
-          <div class="ui toggle checkbox">
-            <input
-              @click="toggle"
-              type="checkbox"
-              name="sms"
-              tabindex="0"
-              v-model="sms"
-            />
-            <label>VIA SMS</label>
+        <div class="ui segment">
+          <div class="field">
+            <div class="ui toggle checkbox">
+              <input
+                @click="toggle"
+                type="checkbox"
+                name="sms"
+                tabindex="0"
+                v-model="sms"
+              />
+              <label>VIA SMS</label>
+            </div>
           </div>
         </div>
-
-      <div class="ui segment">
-        <div class="field">
-          <div class="ui toggle checkbox">
-            <input @click="toggle" type="checkbox" name="email" tabindex="0"/>
-            <label>VIA EMAIL</label>
+        <div class="ui segment">
+          <div class="field">
+            <div class="ui toggle checkbox">
+              <input
+                @click="toggle"
+                type="checkbox"
+                name="email"
+                tabindex="0"
+              />
+              <label>VIA EMAIL</label>
+            </div>
           </div>
         </div>
-      </div>
-      
 
         <div class="subscribe">
           <button type="submit" class="btn btn-primary">SUBSCRIBE</button>
@@ -137,7 +149,7 @@ export default {
       sms: false,
       errors: false,
       emailTaken: false,
-      isActive: false
+      isActive: false,
     };
   },
   methods: {
@@ -156,8 +168,8 @@ export default {
       if (this.emailTaken) {
         this.flashMessage.show({
           status: "error",
-          title: "Error Message Title",
-          message: "error",
+          title: "Email already taken.",
+          message: "Try again.",
         });
         console.log("user already exists");
       } else {
@@ -175,7 +187,7 @@ export default {
         } catch (err) {
           console.log(err);
         }
-      } 
+      }
     },
     toggle() {
       this.isActive = this.isActive ? false : true;
@@ -199,7 +211,6 @@ h3 {
 .ui.segment {
   background: #1e1e1e;
 }
-
 
 .ui.toggle.checkbox label {
   color: white;
@@ -231,5 +242,8 @@ p[data-v-6f83b81c] {
 
 .newsBanner {
   width: 100vh;
+}
+input[type="checkbox"]:checked + label {
+  color: white;
 }
 </style>
