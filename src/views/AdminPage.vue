@@ -5,7 +5,6 @@
         <th>First Name</th>
         <th>Last Name</th>
         <th>Email</th>
-        <th colspan="3"></th>
       </tr>
     </thead>
 

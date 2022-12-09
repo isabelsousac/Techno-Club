@@ -12,7 +12,7 @@
     </div>
     <div id="image"></div>
     <div class="ui text container">
-      <flash-message class="myFlash"></flash-message>
+      <FlashMessage :position="'right top'" />
       <div class="ui one column grid">
         <div class="column">
           <router-view />
@@ -30,6 +30,14 @@
   font-family: "Iceberg", cursive;
   background-color: #1e1e1e;
   color: white;
+}
+
+.myFlash {
+  width: 250px;
+  margin: 10px;
+  position: absolute;
+  top: 50px;
+  right: 0;
 }
 
 body {

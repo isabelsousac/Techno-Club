@@ -157,10 +157,16 @@ export default {
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc) => {
         this.emailTaken = true;
+
         console.log(doc.id, " => ", doc.data());
       });
 
       if (this.emailTaken) {
+        this.flashMessage.show({
+          status: "error",
+          title: "Error Message Title",
+          message: "error",
+        });
         console.log("user already exists");
       } else {
         const user = {

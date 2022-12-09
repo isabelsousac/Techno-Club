@@ -20,5 +20,6 @@ export default {
   width: 75vw;
   flex-flow: row wrap;
   gap: 10px;
+  padding-bottom: 70px;
 }
 </style>
