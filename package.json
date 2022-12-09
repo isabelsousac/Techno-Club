@@ -15,7 +15,8 @@
     "jquery": "^3.6.1",
     "semantic-ui-css": "^2.5.0",
     "vue": "^2.7.14",
-    "vue-router": "^3.5.1"
+    "vue-router": "^3.5.1",
+    "vue-toggle-btn": "^0.1.2"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
