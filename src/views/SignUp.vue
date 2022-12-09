@@ -197,7 +197,7 @@ export default {
 
         try {
           await addDoc(collection(db, "User"), { user });
-          this.$router.push("/");
+          this.$router.push("/subscribed");
         } catch (err) {
           console.log(err);
         }

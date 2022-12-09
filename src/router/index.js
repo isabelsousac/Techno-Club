@@ -4,6 +4,7 @@ import HomeView from "../views/HomeView.vue";
 import SignUp from "../views/SignUp.vue";
 import Policy from "../views/Policy.vue";
 import AdminPage from "../views/AdminPage.vue";
+import Subscribed from '../views/Subscribed.vue';
 
 Vue.use(Router);
 
@@ -31,5 +32,10 @@ export default new Router({
       name: "admin",
       component: AdminPage,
     },
+    {
+      path: "/subscribed",
+      name: "subscribed",
+      component: Subscribed
+    }
   ],
 });
