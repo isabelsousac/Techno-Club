@@ -257,7 +257,7 @@ p[data-v-6f83b81c] {
 .newsBanner {
   width: 100vh;
 }
-input[type="checkbox"]:checked + label {
+.ui.toggle.checkbox {
   color: white;
 }
 </style>
